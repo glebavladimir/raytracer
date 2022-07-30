@@ -11,7 +11,7 @@ class RendererTest extends TestCase
 {
     public function testRenderOutput()
     {
-        $renderer = new Renderer();
+        $renderer = new Renderer(5, 2);
         $renderer->addRow(new Row([
             Pixel::fromProduct(-1),
             Pixel::fromProduct(.7),
