@@ -7,7 +7,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "Test\\Unit\\": "test/unit"
         }
     },
     "authors": [
