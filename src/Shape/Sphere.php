@@ -2,6 +2,7 @@
 
 namespace App\Shape;
 
+use App\Utils\Math;
 use App\Vector\Point;
 
 class Sphere implements Intersectable
@@ -21,7 +22,11 @@ class Sphere implements Intersectable
     private function getDiscriminant(Ray $ray): int|float
     {
         $distanceToCenter = $ray->point->sub($this->center);
-        $b = 2 * $distanceToCenter->dot($ray->direction);
-        return $b * $b - 4 * ($distanceToCenter->dot($distanceToCenter) - $this->radius * $this->radius);
+
+        return Math::getDiscriminant(
+            $ray->direction->dot($ray->direction),
+            2 * $distanceToCenter->dot($ray->direction),
+            $distanceToCenter->dot($distanceToCenter) - $this->radius * $this->radius
+        );
     }
 }
