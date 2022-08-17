@@ -8,49 +8,51 @@ abstract class Vector3
         public float $x = 0,
         public float $y = 0,
         public float $z = 0,
-    ) {}
-
-    public function add(Vector3 $vector): Vector3
+    )
     {
-        $this->x += $vector->x;
-        $this->y += $vector->y;
-        $this->z += $vector->z;
-
-        return $this;
     }
 
-    public function sub(Vector3 $vector): Vector3
+    public function add(Vector3 $vector): static
     {
-        $this->x -= $vector->x;
-        $this->y -= $vector->y;
-        $this->z -= $vector->z;
+        return new static(
+            $this->x + $vector->x,
+            $this->y + $vector->y,
+            $this->z + $vector->z,
+        );
+    }
 
-        return $this;
+    public function sub(Vector3 $vector): static
+    {
+        return new static(
+            $this->x - $vector->x,
+            $this->y - $vector->y,
+            $this->z - $vector->z,
+        );
     }
 
     public function dot(Vector3 $vector): float|int
     {
         return
-        $this->x * $vector->x +
-        $this->y * $vector->y +
-        $this->z * $vector->z;
+            $this->x * $vector->x +
+            $this->y * $vector->y +
+            $this->z * $vector->z;
     }
 
-    public function mul(float|int $a): Vector3
+    public function mul(float|int $a): static
     {
-        $this->x *= $a;
-        $this->y *= $a;
-        $this->z *= $a;
-
-        return $this;
+        return new static(
+            $this->x * $a,
+            $this->y * $a,
+            $this->z * $a,
+        );
     }
 
-    public function div(float|int $a): Vector3
+    public function div(float|int $a): static
     {
-        $this->x /= $a;
-        $this->y /= $a;
-        $this->z /= $a;
-
-        return $this;
+        return new static(
+            $this->x / $a,
+            $this->y / $a,
+            $this->z / $a,
+        );
     }
 }
