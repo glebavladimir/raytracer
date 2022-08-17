@@ -55,4 +55,13 @@ abstract class Vector3
             $this->z / $a,
         );
     }
+
+    public function cross(Vector3 $vector): static
+    {
+        return new static(
+            $this->y * $vector->z - $this->z * $vector->y,
+            $this->z * $vector->x - $this->x * $vector->z,
+            $this->x * $vector->y - $this->y * $vector->x,
+        );
+    }
 }
