@@ -2,6 +2,7 @@
 
 namespace Test\Unit\Vector;
 
+use App\Vector\Direction;
 use App\Vector\Point;
 use PHPUnit\Framework\TestCase;
 
@@ -39,5 +40,21 @@ class Vector3Test extends TestCase
     {
         $vector = new Point(5, 4, 3);
         self::assertEquals(new Point(10, 8, 6), $vector->mul(2));
+    }
+
+    public function testCross()
+    {
+        $vector1 = new Point(5, 4, 3);
+        $vector2 = new Point(5, 5, 5);
+        self::assertEquals(new Point(5, -10, 5), $vector1->cross($vector2));
+    }
+
+    public function testNormalize()
+    {
+        $direction = new Direction(0, 0, 234);
+        self::assertEquals(new Direction(0, 0, 1), $direction->normalize());
+
+        $direction = new Direction(8, 8, 16);
+        self::assertEqualsWithDelta(new Direction(0.4, 0.4, 0.8,), $direction->normalize(), 0.1);
     }
 }

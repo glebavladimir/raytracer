@@ -64,4 +64,15 @@ abstract class Vector3
             $this->x * $vector->y - $this->y * $vector->x,
         );
     }
+
+    public function normalize(): static
+    {
+        $mg = sqrt($this->x * $this->x + $this->y * $this->y + $this->z * $this->z);
+
+        return new static(
+            $this->x / $mg,
+            $this->y / $mg,
+            $this->z / $mg
+        );
+    }
 }
