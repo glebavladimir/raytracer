@@ -2,16 +2,16 @@
 
 namespace App\Shape;
 
-class IntersectableCollection
+class ShapeCollection
 {
     /**
-     * @param Intersectable[] $items
+     * @param Shape[] $items
      */
     public function __construct(
         public array $items
     ) {}
 
-    public function getClosestIntersected(Ray $ray): ?Intersectable
+    public function getClosestIntersected(Ray $ray): ?Shape
     {
         $closest = null;
         foreach ($this->items as $item) {

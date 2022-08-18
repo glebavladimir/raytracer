@@ -7,11 +7,8 @@ use App\Vector\Point;
 use App\Vector\Vector3;
 use Exception;
 
-class Sphere implements Intersectable
+class Sphere extends Shape
 {
-    private ?Point $lastReflectionPoint;
-    private float|int|null $lastReflectionRayLength;
-
     public function __construct(
         public Point $center,
         public float $radius,
@@ -35,56 +32,14 @@ class Sphere implements Intersectable
         if ($intersects) {
             list($x1, $x2) = Math::solveSquareRootEquation($a, $b, $c, $discriminant);
             $t = min($x1, $x2);
-            $this->lastReflectionRayLength = $t;
-            $this->lastReflectionPoint = $ray->point->add($ray->direction->mul($t));
+            $this->setIntersectionValues($t, $ray->point->add($ray->direction->mul($t)));
         }
 
         return $intersects;
     }
 
-
-    public function getReflectionCoefficient(Light $light): float|int
-    {
-        try {
-            $l = $light->center->sub($this->getLastReflectionPoint());
-            $n = $this->getPointNormal($this->getLastReflectionPoint());
-            return abs($l->normalize()->dot($n->normalize()));
-        } catch (Exception) {
-            return -1;
-        }
-    }
-
-    /**
-     * @return Point
-     * @throws Exception
-     */
-    public function getLastReflectionPoint(): Point
-    {
-        if (!isset($this->lastReflectionPoint)) {
-            throw new Exception("Reflection point is not saved: try to check intersection before");
-        }
-        return $this->lastReflectionPoint;
-    }
-
     public function getPointNormal(Point $pi): Vector3
     {
         return $pi->sub($this->center)->normalize();
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function getLastReflectionRayLength(): float|int
-    {
-        if (!isset($this->lastReflectionRayLength)) {
-            throw new Exception("Reflection point length is not saved: try to check intersection before");
-        }
-        return $this->lastReflectionRayLength;
-    }
-
-    private function resetIntersection()
-    {
-        $this->lastReflectionRayLength = null;
-        $this->lastReflectionPoint = null;
     }
 }

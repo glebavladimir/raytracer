@@ -2,7 +2,7 @@
 
 namespace Test\Unit\Shape;
 
-use App\Shape\IntersectableCollection;
+use App\Shape\ShapeCollection;
 use App\Shape\Ray;
 use App\Shape\Sphere;
 use App\Shape\Triangle;
@@ -10,12 +10,12 @@ use App\Vector\Direction;
 use App\Vector\Point;
 use PHPUnit\Framework\TestCase;
 
-class IntersectableCollectionTest extends TestCase
+class ShapeCollectionTest extends TestCase
 {
 
     public function testGetClosestIntersected()
     {
-        $items = new IntersectableCollection([
+        $items = new ShapeCollection([
             new Sphere(new Point(10, 10, 80), 10),
             new Triangle(
                 new Point(0, 10, 130),

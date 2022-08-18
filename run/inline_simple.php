@@ -3,7 +3,7 @@
 use App\Inline\Pixel;
 use App\Inline\Renderer;
 use App\Inline\Row;
-use App\Shape\IntersectableCollection;
+use App\Shape\ShapeCollection;
 use App\Shape\Light;
 use App\Shape\Ray;
 use App\Shape\Sphere;
@@ -16,7 +16,7 @@ require_once '../vendor/autoload.php';
 
 $renderer = new Renderer(30, 20);
 
-$items = new IntersectableCollection([
+$items = new ShapeCollection([
     new Sphere(new Point(10, 10, 80), 10),
     new Triangle(
         new Point(0, 10, 130),
