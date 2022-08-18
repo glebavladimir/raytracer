@@ -2,8 +2,6 @@
 
 namespace App\Inline;
 
-use JetBrains\PhpStorm\Pure;
-
 class Pixel
 {
     const BRIGHT = '#';
@@ -16,9 +14,9 @@ class Pixel
         public string $lighting
     ) {}
 
-    #[Pure] public static function fromProduct(float $product): self
+    public static function fromCoefficient(float $coefficient): self
     {
-        return new self(Pixel::getLighting($product));
+        return new self(Pixel::getLighting($coefficient));
     }
 
     public static function getLighting(float $a): string

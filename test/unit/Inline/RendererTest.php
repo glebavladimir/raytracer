@@ -13,18 +13,18 @@ class RendererTest extends TestCase
     {
         $renderer = new Renderer(5, 2);
         $renderer->addRow(new Row([
-            Pixel::fromProduct(-1),
-            Pixel::fromProduct(.7),
-            Pixel::fromProduct(1.7),
-            Pixel::fromProduct(.7),
-            Pixel::fromProduct(-3.9),
+            Pixel::fromCoefficient(-1),
+            Pixel::fromCoefficient(.7),
+            Pixel::fromCoefficient(1.7),
+            Pixel::fromCoefficient(.7),
+            Pixel::fromCoefficient(-3.9),
         ]));
         $renderer->addRow(new Row([
-            Pixel::fromProduct(-1),
-            Pixel::fromProduct(1.7),
-            Pixel::fromProduct(1.7),
-            Pixel::fromProduct(.7),
-            Pixel::fromProduct(-3.9),
+            Pixel::fromCoefficient(-1),
+            Pixel::fromCoefficient(1.7),
+            Pixel::fromCoefficient(1.7),
+            Pixel::fromCoefficient(.7),
+            Pixel::fromCoefficient(-3.9),
         ]));
 
         ob_start();
