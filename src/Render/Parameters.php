@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Render\Inline;
+namespace App\Render;
 
 class Parameters
 {

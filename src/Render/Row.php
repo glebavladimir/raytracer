@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Render\Inline;
+namespace App\Render;
 
 class Row
 {
     /**
-     * @param Pixel[] $pixels
+     * @param PixelInterface[] $pixels
      */
     public function __construct(
         public array $pixels = []
     ) {}
 
-    public function addPixel(Pixel $pixel)
+    public function addPixel(PixelInterface $pixel)
     {
         array_push($this->pixels, $pixel);
     }

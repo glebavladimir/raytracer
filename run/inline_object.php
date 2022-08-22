@@ -2,7 +2,7 @@
 
 use App\Command\Option;
 use App\Command\Parser as CommandParser;
-use App\Render\Inline\Parameters;
+use App\Render\Parameters;
 use App\Render\Inline\Renderer;
 use App\Shape\Light;
 use App\Vector\Point;

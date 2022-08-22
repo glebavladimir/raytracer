@@ -2,7 +2,9 @@
 
 namespace App\Render\Inline;
 
-class Pixel
+use App\Render\PixelInterface;
+
+class Pixel implements PixelInterface
 {
     const BRIGHT = '#';
     const DARK = '0';
@@ -13,11 +15,6 @@ class Pixel
     public function __construct(
         public string $lighting
     ) {}
-
-    public static function fromCoefficient(float $coefficient): self
-    {
-        return new self(Pixel::getLighting($coefficient));
-    }
 
     public static function getLighting(float $a): string
     {

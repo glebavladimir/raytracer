@@ -3,7 +3,7 @@
 namespace Test\Unit\Inline;
 
 use App\Render\Inline\Pixel;
-use App\Render\Inline\Row;
+use App\Render\Row;
 use PHPUnit\Framework\TestCase;
 
 class RowTest extends TestCase

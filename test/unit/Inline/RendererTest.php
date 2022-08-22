@@ -2,7 +2,7 @@
 
 namespace Test\Unit\Inline;
 
-use App\Render\Inline\Parameters;
+use App\Render\Parameters;
 use App\Render\Inline\Renderer;
 use App\Shape\Light;
 use App\Shape\ShapeCollection;

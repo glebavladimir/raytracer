@@ -2,7 +2,6 @@
 
 namespace App\Render;
 
-use App\Render\Inline\Parameters;
 use App\Shape\Light;
 use App\Shape\ShapeCollection;
 
