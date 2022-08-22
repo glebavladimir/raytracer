@@ -9,17 +9,20 @@ use App\Shape\Ray;
 use App\Vector\Direction;
 use App\Vector\Point;
 
-class Renderer
+class Renderer implements RendererInterface
 {
     private array $rows = [];
 
     public function __construct(
-        private Parameters $parameters,
+        private Parameters      $parameters,
         private ShapeCollection $items,
-        private Light $light,
-    ) {}
+        private Light           $light,
+    )
+    {
+    }
 
-    public function render() {
+    public function render(): void
+    {
         for ($y = 0; $y < $this->parameters->height; $y++) {
             $row = new Row();
             for ($x = 0; $x < $this->parameters->width; $x++) {
