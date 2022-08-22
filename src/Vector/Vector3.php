@@ -47,6 +47,15 @@ abstract class Vector3
         );
     }
 
+    public function offset(float|int $a): static
+    {
+        return new static(
+            $this->x + $a,
+            $this->y + $a,
+            $this->z + $a,
+        );
+    }
+
     public function div(float|int $a): static
     {
         return new static(
