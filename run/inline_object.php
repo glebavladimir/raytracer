@@ -2,8 +2,8 @@
 
 use App\Command\Option;
 use App\Command\Parser as CommandParser;
-use App\Inline\Parameters;
-use App\Inline\Renderer;
+use App\Render\Inline\Parameters;
+use App\Render\Inline\Renderer;
 use App\Shape\Light;
 use App\Vector\Point;
 

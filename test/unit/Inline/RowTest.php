@@ -2,8 +2,8 @@
 
 namespace Test\Unit\Inline;
 
-use App\Inline\Pixel;
-use App\Inline\Row;
+use App\Render\Inline\Pixel;
+use App\Render\Inline\Row;
 use PHPUnit\Framework\TestCase;
 
 class RowTest extends TestCase

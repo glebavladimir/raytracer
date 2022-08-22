@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Inline;
+namespace App\Render\Inline;
 
 class Row
 {

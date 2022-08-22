@@ -2,8 +2,8 @@
 
 namespace Test\Unit\Inline;
 
-use App\Inline\Parameters;
-use App\Inline\Renderer;
+use App\Render\Inline\Parameters;
+use App\Render\Inline\Renderer;
 use App\Shape\Light;
 use App\Shape\ShapeCollection;
 use App\Shape\Sphere;

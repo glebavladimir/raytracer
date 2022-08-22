@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Inline;
+namespace App\Render\Inline;
 
+use App\Render\RendererInterface;
 use App\Shape\ShapeCollection;
 use App\Shape\Light;
 use App\Shape\Ray;
