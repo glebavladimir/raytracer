@@ -49,6 +49,16 @@ class Color255 extends Vector3
         return new self(200, 200, 200);
     }
 
+    public static function getBlackColor(): Color255
+    {
+        return new self(0, 0, 0);
+    }
+
+    public static function getDarkRedColor(): Color255
+    {
+        return new self(207, 0, 0);
+    }
+
     private function restrict(int|float $colorChannel): int
     {
         if ($colorChannel < self::MIN_VALUE) {
