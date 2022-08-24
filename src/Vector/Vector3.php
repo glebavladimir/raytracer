@@ -78,6 +78,10 @@ abstract class Vector3
     {
         $mg = sqrt($this->x * $this->x + $this->y * $this->y + $this->z * $this->z);
 
+        if (empty($mg)) {
+            return new static(0, 0, 0);
+        }
+
         return new static(
             $this->x / $mg,
             $this->y / $mg,
