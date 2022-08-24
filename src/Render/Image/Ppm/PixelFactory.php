@@ -33,4 +33,11 @@ class PixelFactory implements PixelFactoryInterface
     {
         $this->baseColor = $baseColor;
     }
+
+    public function getShadowed(): Pixel
+    {
+        return new Pixel(
+            Color255::getBlackColor()->blend(Color255::getDarkRedColor(), 1/self::SATURATION_COEFFICIENT)
+        );
+    }
 }

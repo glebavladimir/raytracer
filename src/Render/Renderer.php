@@ -4,6 +4,7 @@ namespace App\Render;
 
 use App\Shape\Light;
 use App\Shape\Ray;
+use App\Shape\Shape;
 use App\Shape\ShapeCollection;
 use App\Vector\Direction;
 use App\Vector\Point;
@@ -34,16 +35,12 @@ class Renderer
                     new Point($x, $y, 0),
                     new Direction(0, 0, 1)
                 );
-                $intersectable = $this->items->getClosestIntersected($ray);
-                if ($intersectable !== null) {
-                    $row->addPixel(
-                        $this->pixelFactory->fromCoefficient(
-                            $intersectable->getReflectionCoefficient($this->light)
-                        )
-                    );
-                } else {
-                    $row->addPixel($this->pixelFactory->getEmpty());
-                }
+
+                $row->addPixel(
+                    $this->calculatePixel(
+                        $this->items->getClosestIntersected($ray)
+                    )
+                );
             }
             $this->addRow($row);
         }
@@ -54,5 +51,49 @@ class Renderer
     private function addRow(Row $row): void
     {
         array_push($this->rows, $row);
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function getCoefficient(Shape $intersectable): float|int|null
+    {
+        if ($this->isShadowed($intersectable)) {
+            return null;
+        }
+
+        return $intersectable->getReflectionCoefficient($this->light);
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function isShadowed(Shape $intersectable): bool
+    {
+        $l = $this->light->center->sub($intersectable->getLastReflectionPoint());
+        $ray = new Ray(
+            $intersectable->getLastReflectionPoint(),
+            new Direction($l->x, $l->y, $l->z)
+        );
+
+        return $this->items->isIntersects($ray);
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function calculatePixel(?Shape $intersectable): PixelInterface
+    {
+        if ($intersectable === null) {
+            return $this->pixelFactory->getEmpty();
+        }
+
+        $coefficient = $this->getCoefficient($intersectable);
+
+        if ($coefficient === null) {
+            return $this->pixelFactory->getShadowed();
+        }
+
+        return $this->pixelFactory->fromCoefficient($coefficient);
     }
 }

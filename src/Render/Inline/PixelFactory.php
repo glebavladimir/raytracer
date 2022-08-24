@@ -16,4 +16,8 @@ class PixelFactory implements PixelFactoryInterface
         return new Pixel(Pixel::EMPTY);
     }
 
+    public function getShadowed(): Pixel
+    {
+        return new Pixel(Pixel::SHADOWED);
+    }
 }

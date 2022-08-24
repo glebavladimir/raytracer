@@ -29,4 +29,14 @@ class ShapeCollection
 
         return $closest;
     }
+
+    public function isIntersects(Ray $ray): bool
+    {
+        foreach ($this->items as $item) {
+            if ($item->intersects($ray, false)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
