@@ -2,6 +2,7 @@
 
 namespace App\Render\Inline;
 
+use App\Render\OutputInterface;
 use App\Render\Parameters;
 use App\Render\Renderer as CommonRenderer;
 use App\Render\RendererInterface;
@@ -30,19 +31,10 @@ class Renderer implements RendererInterface
             $this->light,
             new PixelFactory(),
         );
-        $this->show(
+
+        $outputService = new OutputService();
+        $outputService->output(
             $renderer->getRows()
         );
-    }
-
-    private function show(array $rows)
-    {
-        echo PHP_EOL;
-        foreach ($rows as $row) {
-            foreach ($row->pixels as $pixel) {
-                echo $pixel->lighting;
-            }
-            echo PHP_EOL;
-        }
     }
 }

@@ -23,10 +23,9 @@ class Renderer
     }
 
     /**
-     * @return Row[]
      * @throws Exception
      */
-    public function getRows(): array
+    public function getRows(): RowCollection
     {
         for ($y = 0; $y < $this->parameters->height; $y++) {
             $row = new Row();
@@ -49,7 +48,7 @@ class Renderer
             $this->addRow($row);
         }
 
-        return $this->rows;
+        return new RowCollection($this->rows);
     }
 
     private function addRow(Row $row): void

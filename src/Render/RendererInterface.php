@@ -7,11 +7,5 @@ use App\Shape\ShapeCollection;
 
 interface RendererInterface
 {
-    public function __construct(
-        Parameters      $parameters,
-        ShapeCollection $items,
-        Light           $light,
-    );
-
     public function render(): void;
 }
