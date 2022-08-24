@@ -17,9 +17,11 @@ class Sphere extends Shape
     /**
      * @throws Exception
      */
-    public function intersects(Ray $ray): bool
+    public function intersects(Ray $ray, bool $sideEffects = true): bool
     {
-        $this->resetIntersection();
+        if ($sideEffects) {
+            $this->resetIntersection();
+        }
 
         $distanceToCenter = $ray->point->sub($this->center);
         $a = $ray->direction->dot($ray->direction);
@@ -29,6 +31,9 @@ class Sphere extends Shape
         $discriminant = Math::getDiscriminant($a, $b, $c);
 
         $intersects = $discriminant > 0;
+        if (!$sideEffects) {
+            return $intersects;
+        }
         if ($intersects) {
             list($x1, $x2) = Math::solveSquareRootEquation($a, $b, $c, $discriminant);
             $t = min($x1, $x2);

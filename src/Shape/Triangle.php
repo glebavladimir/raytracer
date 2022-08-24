@@ -13,9 +13,11 @@ class Triangle extends Shape
         private Point $cVertex,
     ) {}
 
-    public function intersects(Ray $ray): bool
+    public function intersects(Ray $ray, bool $sideEffects = true): bool
     {
-        $this->resetIntersection();
+        if ($sideEffects) {
+            $this->resetIntersection();
+        }
         $edge1 = $this->bVertex->sub($this->aVertex);
         $edge2 = $this->cVertex->sub($this->aVertex);
         $h = $ray->direction->cross($edge2);
@@ -36,7 +38,9 @@ class Triangle extends Shape
         $t = $f * $edge2->dot($q);
         if ($t > self::EPSILON)
         {
-            $this->setIntersectionValues($t, $ray->point->add($ray->direction->mul($t)));
+            if ($sideEffects) {
+                $this->setIntersectionValues($t, $ray->point->add($ray->direction->mul($t)));
+            }
             return true;
         }
 

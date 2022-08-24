@@ -13,7 +13,7 @@ abstract class Shape
     protected ?Point $lastReflectionPoint;
     protected float|int|null $lastReflectionRayLength;
 
-    abstract public function intersects(Ray $ray): bool;
+    abstract public function intersects(Ray $ray, bool $sideEffects): bool;
 
     abstract public function getPointNormal(Point $pi): Vector3;
 
