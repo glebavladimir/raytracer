@@ -2,6 +2,8 @@
 
 namespace App\Shape;
 
+use Exception;
+
 class ShapeCollection
 {
     /**
@@ -11,6 +13,9 @@ class ShapeCollection
         public array $items
     ) {}
 
+    /**
+     * @throws Exception
+     */
     public function getClosestIntersected(Ray $ray): ?Shape
     {
         $closest = null;

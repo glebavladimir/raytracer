@@ -22,8 +22,8 @@ class PixelFactory implements PixelFactoryInterface
     }
 
     public function getEmpty(): Pixel
-    {return new Pixel(Color255::getChromaKeyColor());
-
+    {
+        return new Pixel(Color255::getChromaKeyColor());
     }
 
     private function getBaseColor(): Color255
