@@ -23,7 +23,7 @@ abstract class Shape
             $l = $light->center->sub($this->getLastReflectionPoint());
             $n = $this->getPointNormal($this->getLastReflectionPoint());
 
-            return abs($l->normalize()->dot($n->normalize()));
+            return $l->normalize()->dot($n->normalize());
         } catch (Exception) {
             return -1;
         }
