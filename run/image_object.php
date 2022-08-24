@@ -10,19 +10,23 @@ use App\Vector\Point;
 
 require_once '../vendor/autoload.php';
 
+$start_time = microtime(true);
+
 $commandParser = new CommandParser();
 $path = $commandParser->getOption(Option::source);
 $outputPath = $commandParser->getOption(Option::output);
 
-$side = 50;
+$side = 200;
 
 if ($path !== null) {
     $loader = new App\Loader\ObjFile($path, $side, $side);
     $renderer = new Renderer(
         new Parameters($side, $side),
         $loader->loadShapeCollection(),
-        new Light(new Point(15, 0, 0), 1),
+        new Light(new Point(15, 0, -50), 1),
         new PpmImageOutputService($outputPath, $side, $side),
     );
     $renderer->render();
 }
+
+echo "- Rendering time = " . (microtime(true) - $start_time) . " sec";
