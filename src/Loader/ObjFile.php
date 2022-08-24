@@ -6,6 +6,7 @@ use App\Shape\Shape;
 use App\Shape\ShapeCollection;
 use App\Shape\Triangle;
 use App\Vector\Vertex;
+use Exception;
 
 class ObjFile implements Loader
 {
@@ -38,30 +39,19 @@ class ObjFile implements Loader
         return $this->vertices[$index - 1];
     }
 
+    /**
+     * @throws Exception
+     */
     private function loadShapes(): void
     {
         $rows = explode(PHP_EOL, file_get_contents($this->path));
+
         foreach ($rows as $row) {
-            $values = $this->getValues($row);
-            if (count($values) > 3) {
-                if ($values[0] === 'v') {
-                    array_push($this->vertices, new Vertex($values[1], $values[2], $values[3]));
-                    $this->maxVertexValue = max($this->maxVertexValue, $values[1], $values[2], $values[3]);
-                    $this->minVertexValue = min($this->minVertexValue, $values[1], $values[2], $values[3]);
-                }
-            }
+            $this->addVertex($row);
         }
+
         foreach ($rows as $row) {
-            $values = $this->getValues($row);
-            if (count($values) > 3) {
-                if ($values[0] === 'f') {
-                    array_push($this->shapes, new Triangle(
-                        $this->getVertex(explode('/', $values[1])[0])->offset($this->getOffset())->mul($this->getMultiplier()),
-                        $this->getVertex(explode('/', $values[2])[0])->offset($this->getOffset())->mul($this->getMultiplier()),
-                        $this->getVertex(explode('/', $values[3])[0])->offset($this->getOffset())->mul($this->getMultiplier()),
-                    ));
-                }
-            }
+            $this->populateShapes($row);
         }
     }
 
@@ -82,5 +72,56 @@ class ObjFile implements Loader
     private function getValues(string $row): array
     {
         return array_values(array_filter(explode(' ', $row), fn($a) => trim($a) !== ''));
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function populateShapes(string $row)
+    {
+        $values = $this->getValues($row);
+        if (count($values) > 3) {
+            if ($values[0] === 'f') {
+                $this->addTriangles(array_slice($values, 1));
+            }
+        }
+    }
+
+    private function addVertex(string $row)
+    {
+        $values = $this->getValues($row);
+        if (count($values) > 3) {
+            if ($values[0] === 'v') {
+                array_push($this->vertices, new Vertex($values[1], $values[2], $values[3]));
+                $this->maxVertexValue = max($this->maxVertexValue, $values[1], $values[2], $values[3]);
+                $this->minVertexValue = min($this->minVertexValue, $values[1], $values[2], $values[3]);
+            }
+        }
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function addTriangles(array $values)
+    {
+        if (count($values) < 3) {
+            throw new Exception("Cannot build triangle with less than 3 vertices");
+        }
+        if (count($values) === 3) {
+            $this->addTriangle($values);
+        }
+        if (count($values) > 3) {
+            $this->addTriangle(array_slice($values, 0, 3));
+            $this->addTriangles(array_slice($values, 1));
+        }
+    }
+
+    private function addTriangle(array $values)
+    {
+        array_push($this->shapes, new Triangle(
+            $this->getVertex(explode('/', $values[0])[0])->offset($this->getOffset())->mul($this->getMultiplier()),
+            $this->getVertex(explode('/', $values[1])[0])->offset($this->getOffset())->mul($this->getMultiplier()),
+            $this->getVertex(explode('/', $values[2])[0])->offset($this->getOffset())->mul($this->getMultiplier()),
+        ));
     }
 }
