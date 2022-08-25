@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 use App\Command\Option;
 use App\Command\Parser as CommandParser;

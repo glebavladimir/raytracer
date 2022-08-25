@@ -19,14 +19,10 @@ abstract class Shape
 
     public function getReflectionCoefficient(Light $light): float|int
     {
-        try {
-            $l = $light->center->sub($this->getLastReflectionPoint());
-            $n = $this->getPointNormal($this->getLastReflectionPoint());
+        $l = $light->center->sub($this->getLastReflectionPoint());
+        $n = $this->getPointNormal($this->getLastReflectionPoint());
 
-            return $l->normalize()->dot($n->normalize());
-        } catch (Exception) {
-            return -1;
-        }
+        return $l->normalize()->dot($n->normalize());
     }
 
     /**

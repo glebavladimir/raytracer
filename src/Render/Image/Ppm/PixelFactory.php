@@ -7,7 +7,7 @@ use App\Vector\Color255;
 
 class PixelFactory implements PixelFactoryInterface
 {
-    const SATURATION_COEFFICIENT = .3;
+    const SATURATION_COEFFICIENT = .5;
 
     private Color255 $baseColor;
 
